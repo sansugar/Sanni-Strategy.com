@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanni — 商務數據分析與策略顧問</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --black: #0e0e0e;
+    --dark: #1a1a1a;
+    --mid: #4a4a4a;
+    --light: #8a8a8a;
+    --border: #d8d8d8;
+    --bg: #f7f6f4;
+    --white: #ffffff;
+    --accent: #0e0e0e;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--bg);
+    color: var(--black);
+    font-size: 16px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(247, 246, 244, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+  }
+
+  nav.scrolled {
+    border-color: var(--border);
+  }
+
+  .nav-logo {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--black);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--mid);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--black);
+  }
+
+  .nav-cta {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black) !important;
+    border-bottom: 1px solid var(--black);
+    padding-bottom: 1px;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+
+  .hero-left {
+    padding: 120px 48px 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 40px;
+  }
+
+  .hero-title {
+    font-size: clamp(42px, 5vw, 72px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 32px;
+  }
+
+  .hero-title span {
+    display: block;
+  }
+
+  .hero-title .accent-line {
+    color: var(--light);
+    font-weight: 300;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+    max-width: 420px;
+    margin-bottom: 56px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 14px 32px;
+    background: var(--black);
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--dark);
+    transform: translateY(-1px);
+  }
+
+  .btn-text {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--mid);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-text:hover {
+    color: var(--black);
+    border-color: var(--black);
+  }
+
+  .hero-right {
+    padding: 120px 48px 80px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .hero-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    margin-bottom: 80px;
+  }
+
+  .stat-item {
+    border-left: 2px solid var(--border);
+    padding-left: 24px;
+  }
+
+  .stat-number {
+    font-size: 36px;
+    font-weight: 900;
+    color: var(--black);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: var(--light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero-quote {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--light);
+    font-style: italic;
+    line-height: 1.7;
+    max-width: 300px;
+  }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: 120px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 64px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-left {
+    position: sticky;
+    top: 100px;
+  }
+
+  .about-name {
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+
+  .about-title {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--light);
+    letter-spacing: 0.04em;
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+
+  .about-right {
+    padding-top: 2px;
+  }
+
+  .about-lead {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1.75;
+    color: var(--dark);
+    margin-bottom: 40px;
+  }
+
+  .about-body {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 2;
+    margin-bottom: 24px;
+  }
+
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--mid);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+  }
+
+  /* ── SERVICE ── */
+  #service {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #service > .section-label {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .service-intro {
+    padding: 0 48px 72px;
+    max-width: 640px;
+  }
+
+  .service-intro h2 {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .service-intro p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    border-top: 1px solid var(--border);
+  }
+
+  .service-card {
+    padding: 56px 48px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card:nth-child(2n) {
+    border-right: none;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--black);
+    transition: width 0.4s ease;
+  }
+
+  .service-card:hover::before {
+    width: 100%;
+  }
+
+  .service-card:hover {
+    background: rgba(0,0,0,0.02);
+  }
+
+  .service-number {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    color: var(--light);
+    margin-bottom: 32px;
+    display: block;
+    text-transform: uppercase;
+  }
+
+  .service-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+    margin-bottom: 20px;
+    color: var(--black);
+  }
+
+  .service-card p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+    margin-bottom: 32px;
+  }
+
+  .service-deliverable {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--black);
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .service-deliverable::before {
+    content: '→';
+    font-size: 14px;
+  }
+
+  .service-modes {
+    padding: 48px;
+    background: var(--dark);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background-color: var(--border);
+    border-top: 1px solid var(--border);
+  }
+
+  .mode-block {
+    background: var(--dark);
+    padding: 40px 48px;
+  }
+
+  .mode-type {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .mode-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .mode-desc {
+    font-size: 13px;
+    font-weight: 300;
+    color: #888;
+    line-height: 1.8;
+  }
+
+  /* ── PROCESS ── */
+  #process {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .process-left {
+    position: sticky;
+    top: 100px;
+  }
+
+  .process-left h2 {
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .process-left p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .process-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 32px;
+    padding: 40px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .process-step:first-child {
+    padding-top: 0;
+  }
+
+  .step-num {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--light);
+    padding-top: 4px;
+  }
+
+  .step-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    color: var(--black);
+  }
+
+  .step-content p {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+  }
+
+  /* ── TRUST ── */
+  #trust {
+    background: var(--black);
+    color: var(--white);
+    padding: 120px 48px;
+    border-top: none;
+  }
+
+  #trust .section-label {
+    color: #555;
+  }
+
+  #trust .section-label::after {
+    background: #333;
+  }
+
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: #222;
+    border: 1px solid #222;
+    margin-bottom: 80px;
+  }
+
+  .trust-item {
+    background: var(--black);
+    padding: 48px 40px;
+  }
+
+  .trust-icon {
+    font-size: 20px;
+    margin-bottom: 24px;
+    display: block;
+  }
+
+  .trust-item h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .trust-item p {
+    font-size: 13px;
+    font-weight: 300;
+    color: #666;
+    line-height: 1.9;
+  }
+
+  .trust-cta {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid #222;
+  }
+
+  .trust-cta p {
+    font-size: 13px;
+    font-weight: 300;
+    color: #555;
+    margin-bottom: 32px;
+    letter-spacing: 0.04em;
+  }
+
+  .trust-cta h2 {
+    font-size: clamp(28px, 3.5vw, 48px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--white);
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn-outline {
+    display: inline-block;
+    padding: 16px 40px;
+    border: 1px solid #444;
+    color: var(--white);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .btn-outline:hover {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .contact-left h2 {
+    font-size: clamp(28px, 3vw, 44px);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .contact-left p {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.9;
+    max-width: 380px;
+  }
+
+  .contact-info {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .contact-row-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light);
+    min-width: 60px;
+  }
+
+  .contact-row-value {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .contact-row-value:hover {
+    text-decoration: underline;
+  }
+
+  .contact-right {
+    padding-top: 4px;
+  }
+
+  .contact-note {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--light);
+    line-height: 1.9;
+    border-left: 2px solid var(--border);
+    padding-left: 24px;
+    margin-top: 40px;
+  }
+
+  .approach-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .approach-list li {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .approach-list li::before {
+    content: '—';
+    color: var(--border);
+    flex-shrink: 0;
+  }
+
+  .approach-list li strong {
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 32px 48px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--light);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── FADE IN ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── MOBILE MENU ── */
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px;
+  }
+
+  .menu-btn span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--black);
+    transition: all 0.3s;
+  }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 61px;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 24px 48px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .mobile-nav.open {
+    display: flex;
+  }
+
+  .mobile-nav a {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--mid);
+    text-decoration: none;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav {
+      padding: 18px 24px;
+    }
+
+    .nav-links {
+      display: none;
+    }
+
+    .menu-btn {
+      display: flex;
+    }
+
+    .mobile-nav {
+      padding: 24px;
+    }
+
+    #hero {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-left {
+      padding: 100px 24px 60px;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-right {
+      padding: 60px 24px 80px;
+    }
+
+    .hero-stats {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 32px;
+      margin-bottom: 48px;
+    }
+
+    section {
+      padding: 80px 24px;
+    }
+
+    #about {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .about-left {
+      position: static;
+    }
+
+    #service > .section-label,
+    .service-intro {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-card {
+      padding: 40px 24px;
+      border-right: none;
+    }
+
+    .service-modes {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+
+    .mode-block {
+      padding: 32px 24px;
+    }
+
+    #process {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    .process-left {
+      position: static;
+    }
+
+    .trust-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .trust-item {
+      padding: 36px 24px;
+    }
+
+    #trust {
+      padding: 80px 24px;
+    }
+
+    #contact {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+
+    footer {
+      padding: 24px;
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .hero-title {
+      font-size: 38px;
+    }
+
+    .hero-stats {
+      flex-direction: column;
+    }
+
+    .trust-cta h2 {
+      font-size: 26px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">Sanni</a>
+  <ul class="nav-links">
+    <li><a href="#about">關於我</a></li>
+    <li><a href="#service">服務項目</a></li>
+    <li><a href="#process">合作方式</a></li>
+    <li><a href="#contact" class="nav-cta">開始合作</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" onclick="closeMobileNav()">關於我</a>
+  <a href="#service" onclick="closeMobileNav()">服務項目</a>
+  <a href="#process" onclick="closeMobileNav()">合作方式</a>
+  <a href="#contact" onclick="closeMobileNav()">開始合作</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left fade-in">
+    <p class="hero-eyebrow">商務數據分析與策略顧問</p>
+    <h1 class="hero-title">
+      <span>讓數據</span>
+      <span>說出</span>
+      <span class="accent-line">下一步。</span>
+    </h1>
+    <p class="hero-desc">
+      協助小型企業釐清流程斷點、建立數據驅動決策機制，
+      導入 AI 工具與自動化方案，將複雜需求轉化為可持續執行的成長策略。
+    </p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">開始合作</a>
+      <a href="#service" class="btn-text">了解服務</a>
+    </div>
+  </div>
+
+  <div class="hero-right fade-in" style="transition-delay: 0.15s;">
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">4</div>
+        <div class="stat-label">核心服務領域</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">2x</div>
+        <div class="stat-label">合作模式彈性</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">AI+</div>
+        <div class="stat-label">敏捷測試方法</div>
+      </div>
+    </div>
+    <p class="hero-quote">
+      「行動嚴謹、重視細節，利用 AI 進行敏捷測試——
+      不是給建議，而是確保策略真正落地。」
+    </p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left fade-in">
+    <div class="section-label">About</div>
+    <h2 class="about-name">Sanni</h2>
+    <div class="about-title">商務數據分析<br>與策略顧問</div>
+  </div>
+
+  <div class="about-right fade-in" style="transition-delay: 0.1s;">
+    <p class="about-lead">
+      我專注於商務營運分析、流程優化與策略規劃，擅長從數據中找出關鍵問題與成長機會，協助團隊提升營運效率與決策品質。
+    </p>
+    <p class="about-body">
+      過去橫跨客戶成功、營運管理與跨部門專案推動，具備將複雜需求轉化為可落地策略與執行方案的能力。對我而言，顧問工作不是給一份報告——而是確保洞察真正轉化為行動。
+    </p>
+    <p class="about-body">
+      目前聚焦於 AI 導入、組織流程設計與數據驅動管理，協助團隊建立更有效率且可持續優化的商務運作模式。
+    </p>
+    <div class="about-tags">
+      <span class="tag">BizOps</span>
+      <span class="tag">數據分析</span>
+      <span class="tag">流程優化</span>
+      <span class="tag">AI 導入</span>
+      <span class="tag">策略規劃</span>
+      <span class="tag">跨部門協作</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE -->
+<section id="service">
+  <div class="section-label">Services</div>
+
+  <div class="service-intro fade-in">
+    <h2>針對真實痛點，<br>提供可落地的解方。</h2>
+    <p>流程複雜多斷點、缺乏數據依據、跨部門推進困難——這些問題有明確的解決路徑。我提供從診斷到執行的全程支援。</p>
+  </div>
+
+  <div class="service-grid">
+    <div class="service-card fade-in">
+      <span class="service-number">01</span>
+      <h3>商務流程盤點<br>與優化</h3>
+      <p>系統性梳理現有流程，找出斷點、重複與低效環節，設計可執行的改善方案，讓團隊運作更流暢、資源配置更清晰。</p>
+      <div class="service-deliverable">流程斷點清單 · 優化方案 · 執行路線圖</div>
+    </div>
+
+    <div class="service-card fade-in" style="transition-delay: 0.08s;">
+      <span class="service-number">02</span>
+      <h3>AI 工具 &amp; 自動化<br>導入顧問</h3>
+      <p>評估適合的 AI 與自動化工具，設計導入策略並陪跑落地。利用敏捷測試方法快速驗證效益，確保工具真正被使用，而非閒置。</p>
+      <div class="service-deliverable">工具評估報告 · 落地可用的自動化流程</div>
+    </div>
+
+    <div class="service-card fade-in" style="transition-delay: 0.12s;">
+      <span class="service-number">03</span>
+      <h3>商務數據儀表板<br>建置</h3>
+      <p>從零開始建立數據追蹤系統，定義關鍵指標、設計視覺化儀表板，讓管理層能夠即時掌握營運狀況，以數據支撐每一個決策。</p>
+      <div class="service-deliverable">可實際運行的數據追蹤系統</div>
+    </div>
+
+    <div class="service-card fade-in" style="transition-delay: 0.16s;">
+      <span class="service-number">04</span>
+      <h3>專案管理與<br>跨部門協作</h3>
+      <p>作為跨部門專案的推動核心，建立清晰的溝通框架與進度追蹤機制，確保各部門目標一致、執行不脫軌，降低協調成本。</p>
+      <div class="service-deliverable">協作架構 · 進度追蹤系統</div>
+    </div>
+  </div>
+
+  <div class="service-modes fade-in">
+    <div class="mode-block">
+      <span class="mode-type">合作模式 A</span>
+      <div class="mode-name">專案制</div>
+      <p class="mode-desc">針對明確目標與範疇，以固定專案形式合作——從診斷、規劃到交付，完整陪跑一個改善循環。</p>
+    </div>
+    <div class="mode-block" style="border-left: 1px solid #333;">
+      <span class="mode-type">合作模式 B</span>
+      <div class="mode-name">月費顧問制</div>
+      <p class="mode-desc">以月費制持續陪伴，作為你的策略後盾——定期審視數據、優化流程，在需要時給予即時的決策支援。</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="process-left fade-in">
+    <div class="section-label">Process</div>
+    <h2>從問題<br>到落地，<br>四個步驟。</h2>
+    <p>嚴謹的工作方法，確保每一個交付物都有明確的目的與可執行的後續行動。</p>
+  </div>
+
+  <div class="process-steps">
+    <div class="process-step fade-in">
+      <span class="step-num">01</span>
+      <div class="step-content">
+        <h3>探索與診斷</h3>
+        <p>深入了解你的業務現況、痛點與目標。透過結構化訪談與數據盤點，建立清晰的問題地圖，確認合作優先順序。</p>
+      </div>
+    </div>
+
+    <div class="process-step fade-in" style="transition-delay: 0.08s;">
+      <span class="step-num">02</span>
+      <div class="step-content">
+        <h3>策略設計與規劃</h3>
+        <p>針對核心問題提出具體解決方案，設計可落地的執行路線圖。每一步都有清楚的負責方、時程與成功指標。</p>
+      </div>
+    </div>
+
+    <div class="process-step fade-in" style="transition-delay: 0.12s;">
+      <span class="step-num">03</span>
+      <div class="step-content">
+        <h3>敏捷測試與執行</h3>
+        <p>利用 AI 工具進行快速迭代測試，驗證策略假設、調整方向，確保資源投入在真正有效的地方，而非等到最後才發現問題。</p>
+      </div>
+    </div>
+
+    <div class="process-step fade-in" style="transition-delay: 0.16s;">
+      <span class="step-num">04</span>
+      <div class="step-content">
+        <h3>交付與持續優化</h3>
+        <p>完整交付可實際運作的系統與文件，並根據需求持續跟進。目標不是結束合作，而是確保成果真正被使用與延續。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section id="trust">
+  <div class="section-label">Why Sanni</div>
+
+  <div class="trust-grid">
+    <div class="trust-item fade-in">
+      <span class="trust-icon">◎</span>
+      <h3>行動嚴謹，細節到位</h3>
+      <p>不停留在建議的層次。每一個策略都附帶明確的執行步驟、時程與驗證方法，確保洞察轉化為真實改變。</p>
+    </div>
+
+    <div class="trust-item fade-in" style="transition-delay: 0.08s;">
+      <span class="trust-icon">◈</span>
+      <h3>跨領域推動能力</h3>
+      <p>橫跨客戶成功、營運管理與數據分析的實戰經驗，能夠在不同職能之間建立共識、推動複雜專案向前。</p>
+    </div>
+
+    <div class="trust-item fade-in" style="transition-delay: 0.16s;">
+      <span class="trust-icon">⬡</span>
+      <h3>AI 驅動的敏捷方法</h3>
+      <p>將 AI 工具整合進工作流程，快速測試假設、縮短驗證週期，讓小型團隊也能擁有大組織的分析與執行效率。</p>
+    </div>
+  </div>
+
+  <div class="trust-cta fade-in">
+    <p>準備好讓營運效率升級了嗎？</p>
+    <h2>讓我們從一次<br>深度對話開始。</h2>
+    <a href="#contact" class="btn-outline">預約初次諮詢</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left fade-in">
+    <div class="section-label">Contact</div>
+    <h2>開始一段<br>有效率的合作。</h2>
+    <p>無論是探索合作可能性，或是對特定服務有疑問，歡迎直接聯繫。初次諮詢可以從一封信開始。</p>
+
+    <div class="contact-info">
+      <div class="contact-row">
+        <span class="contact-row-label">Email</span>
+        <a href="mailto:sanlee2720@gmail.com" class="contact-row-value">sanlee2720@gmail.com</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">Handle</span>
+        <span class="contact-row-value">@sansugar</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-right fade-in" style="transition-delay: 0.1s;">
+    <p style="font-size:13px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--light);margin-bottom:24px;">合作前，你可以期待</p>
+    <ul class="approach-list">
+      <li><span><strong>快速回覆：</strong>通常在 1–2 個工作天內回應</span></li>
+      <li><span><strong>初步診斷：</strong>透過第一次對話釐清你的核心挑戰</span></li>
+      <li><span><strong>清楚的提案：</strong>根據你的需求提出具體合作方向與費用估算</span></li>
+      <li><span><strong>彈性合作：</strong>專案制或月費制，依你的階段需求選擇</span></li>
+    </ul>
+
+    <p class="contact-note">
+      不確定自己的問題是否適合諮詢？直接說說你的處境就好——
+      我來幫你判斷是否、以及如何能夠協助。
+    </p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Sanni. 商務數據分析與策略顧問。</p>
+  <p>sanlee2720@gmail.com</p>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  menuBtn.addEventListener('click', () => {
+    mobileNav.classList.toggle('open');
+  });
+
+  function closeMobileNav() {
+    mobileNav.classList.remove('open');
+  }
+
+  // Fade in on scroll
+  const fadeEls = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // Stagger children
+  document.querySelectorAll('.service-grid, .trust-grid, .process-steps').forEach(container => {
+    const children = container.querySelectorAll('.fade-in');
+    children.forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.07}s`;
+    });
+  });
+</script>
+</body>
+</html>
