@@ -272,12 +272,34 @@
     top: 100px;
   }
 
+  .about-identity {
+    display: flex;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  .about-photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    filter: grayscale(20%);
+  }
+
+  .about-identity-text {
+    display: flex;
+    flex-direction: column;
+  }
+
   .about-name {
     font-size: clamp(28px, 3vw, 40px);
     font-weight: 900;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    margin-bottom: 16px;
+    margin-bottom: 0;
   }
 
   .about-title {
@@ -286,8 +308,8 @@
     color: var(--light);
     letter-spacing: 0.04em;
     border-top: 1px solid var(--border);
-    padding-top: 20px;
-    margin-top: 20px;
+    padding-top: 16px;
+    margin-top: 16px;
   }
 
   .about-right {
@@ -872,6 +894,25 @@
       position: static;
     }
 
+    .about-identity {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .about-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .about-name {
+      font-size: 42px;
+    }
+
+    .about-title {
+      font-size: 17px;
+    }
+
     #service > .section-label,
     .service-intro {
       padding-left: 24px;
@@ -1013,8 +1054,13 @@
 <section id="about">
   <div class="about-left fade-in">
     <div class="section-label">About</div>
-    <h2 class="about-name">Sanni</h2>
-    <div class="about-title">商務數據分析<br>與策略顧問</div>
+    <div class="about-identity">
+      <img src="https://sansugar.github.io/Sanni-Strategy.com/myphoto.JPG" alt="Sanni's Photo" class="about-photo">
+      <div class="about-identity-text">
+        <h2 class="about-name">Sanni</h2>
+        <div class="about-title">商務數據分析<br>與策略顧問</div>
+      </div>
+    </div>
   </div>
 
   <div class="about-right fade-in" style="transition-delay: 0.1s;">
